@@ -25,6 +25,7 @@ filetype plugin indent on
 set viminfo='10,f1,<100,:20,@20,/20,h,n~/.vim/.viminfo
 " set autochdir            " automatically change working directory
 set directory=~/.vim/tmp " store swap files in a single directory
+set noswapfile
 set nobackup             " do not make backups
 set tags+=tags;          " search recursively upwards for tags file
 if version >= 703        " check for version 7.3 or higher
@@ -104,12 +105,10 @@ nnoremap <C-V> "+P
 "==========================================================================
 
 "-- Color Scheme ----------------------------------------------------------
-let g:solarized_termcolors=256
-
 if !exists("g:colors_name")
   syntax enable
-  set background=dark
-  colorscheme solarized
+  set t_Co=256
+  colorscheme molokai
 endif
 
 "-- GUI Options -----------------------------------------------------------

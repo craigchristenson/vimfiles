@@ -32,7 +32,8 @@ git_bundles = [
   "git://github.com/vim-scripts/molokai.git",
   "git://github.com/rosenfeld/rgrep.vim.git",
   "git://github.com/vim-scripts/slimv.vim.git",
-  "git://github.com/altercation/vim-colors-solarized.git"
+  "git://github.com/altercation/vim-colors-solarized.git",
+  "git://github.com/twerth/ir_black.git"
 
 
 ]
