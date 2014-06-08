@@ -1,22 +1,16 @@
 #!/usr/bin/env ruby
 
 git_bundles = [
-  "git://github.com/astashov/vim-ruby-debugger.git",
-  "git://github.com/ervandew/supertab.git",
   "git://github.com/godlygeek/tabular.git",
-  "git://github.com/depuracao/vim-rdoc.git",
   "git://github.com/msanders/snipmate.vim.git",
   "git://github.com/pangloss/vim-javascript.git",
   "git://github.com/scrooloose/nerdtree.git",
-  "git://github.com/timcharper/textile.vim.git",
   "git://github.com/tpope/vim-fugitive.git",
   "git://github.com/tpope/vim-git.git",
-  "git://github.com/tpope/vim-haml.git",
   "git://github.com/tpope/vim-markdown.git",
-  "git://github.com/tpope/vim-rails.git",
   "git://github.com/tpope/vim-repeat.git",
   "git://github.com/tpope/vim-surround.git",
-  "git://github.com/tpope/vim-vividchalk.git",
+  "git://github.com/nanotech/jellybeans.vim.git",
   "git://github.com/tsaleh/taskpaper.vim.git",
   "git://github.com/tsaleh/vim-matchit.git",
   "git://github.com/tsaleh/vim-shoulda.git",
@@ -31,11 +25,7 @@ git_bundles = [
   "git://github.com/vim-scripts/L9.git",
   "git://github.com/vim-scripts/molokai.git",
   "git://github.com/rosenfeld/rgrep.vim.git",
-  "git://github.com/vim-scripts/slimv.vim.git",
-  "git://github.com/altercation/vim-colors-solarized.git",
-  "git://github.com/twerth/ir_black.git"
-
-
+  "git://github.com/terryma/vim-multiple-cursors.git"
 ]
 
 vim_org_scripts = [

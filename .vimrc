@@ -1,7 +1,4 @@
-"==========================================================================
-" Main / Behavior                                                       {{{
-"==========================================================================
-
+"-- Main --------------------------------------------------------------
 set nocompatible
 
 " Pathogen initialization
@@ -9,83 +6,43 @@ call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 call pathogen#infect()
 
-syntax on
-filetype plugin indent on
+syntax on    			" display syntax highlighting
 
-"-- Files & Directories ---------------------------------------------------
-" Tell vim to remember certain things when we exit
-"           +-> Remember marks for up to # previously edited files
-"           |   +-> Remember global marks
-"           |   |  +-> Save up to # lines for each register
-"           |   |  |    +-> Remember up to # lines of command-line history
-"           |   |  |    |   +-> Number of lines to save from the input line history
-"           |   |  |    |   |   +-> Number of lines to save from the search history
-"           |   |  |    |   |   |   +-> Disable 'hlsearch' highlighting when starting
-"           |   |  |    |   |   |   | +-> Where to save the viminfo files
-set viminfo='10,f1,<100,:20,@20,/20,h,n~/.vim/.viminfo
-" set autochdir            " automatically change working directory
-set directory=~/.vim/tmp " store swap files in a single directory
-set noswapfile
-set nobackup             " do not make backups
-set tags+=tags;          " search recursively upwards for tags file
-if version >= 703        " check for version 7.3 or higher
-  set undodir=~/.vim/tmp " list of directory names for undo files
-  set undofile           " automatically saves undo history to a file
-else
-  let g:gundo_disable=1  " disable Gundo plugin
-endif
+"-- Indenting --------------------------------------------------------------
+filetype plugin indent on    	" allow indenting
+set noswapfile     		" do not use swapfile
+set nobackup     		" do not create backups
+set expandtab    		" use spaces instead of tabs
+set shiftround           	" round indent to multiple of 'shiftwidth'
+set shiftwidth=4		" match shifting to indenting
+set tabstop=4			" indent two spaces by default
+set autoindent			" match indent on new lines
+set smartindent                 " auto indent text
+set backspace=2
 
-"-- Indenting -------------------------------------------------------------
-set expandtab            " use spaces instead of tabs
-set shiftround           " round indent to multiple of 'shiftwidth'
-set shiftwidth=2         " match shifting to indenting
-set softtabstop=2        " indent two spaces by default
-set autoindent
-set smartindent
+"-- Searching --------------------------------------------------------------
+set nohlsearch                  " do not highlight search results
+set ignorecase			" case-insensitive searching by default
+set incsearch			" search as I type
+set smartcase			" case-sensitive if I use an uppercase letter
+set wrapscan			" wrap around the file when searching
 
-"-- Searching -------------------------------------------------------------
-set hlsearch             " highlight search results
-set ignorecase           " case-insensitive searching by default
-set incsearch            " search as I type
-set smartcase            " case-sensitive if I use a capital letter
-set wrapscan             " wrap around the file when searching
-
-"-- Folding ---------------------------------------------------------------
-set foldenable           " enable folding...
-set foldmethod=manual    " ...but don't do it automatically
-
-"-- Wildmenu --------------------------------------------------------------
-set wildmenu
-set wildmode=longest:list
-
-"-- Scrolling -------------------------------------------------------------
+"-- Scrolling --------------------------------------------------------------
 set scrolloff=2
 set sidescrolloff=10
 
 "-- Wrapping --------------------------------------------------------------
-"                 +-> Auto-wrap comments using textwidth
-"                 |+-> Automatically insert the comment leader after <Enter>
-"                 ||+-> Allow formatting of comments with 'gq'.
-set formatoptions=crq
-set textwidth=78
-set nowrap
+set wrap
 set linebreak
 
-"-- Other / Unsorted ------------------------------------------------------
-set backspace=indent,eol,start
-set fileformats=unix,dos
+"-- Line Numbers ----------------------------------------------------------
+set number
+set numberwidth=4
+
+"-- Other --------------------------------------------------------------
 set hidden
-set history=100
-set laststatus=2
-set matchtime=5
-set mousehide
 set noerrorbells
-set nostartofline
-set novisualbell
-set report=0
 set ruler
-set shellslash
-set shortmess+=I
 set showcmd
 set showmatch
 set autoread
@@ -99,61 +56,10 @@ vnoremap <C-X> "+D
 vnoremap <C-C> "+Y
 nnoremap <C-V> "+P
 
-"}}}
-"==========================================================================
-" Appearance                                                            {{{
-"==========================================================================
+"-- Theme --------------------------------------------------------------
+syntax enable
+colorscheme jellybeans
 
-"-- Color Scheme ----------------------------------------------------------
-if !exists("g:colors_name")
-  syntax enable
-  set t_Co=256
-  colorscheme molokai
-endif
-
-"-- GUI Options -----------------------------------------------------------
-if has("gui_running")
-" Clobber all GUI settings except for one...
-"                +-> Use console-style drop-downs
-  set guioptions=c
-endif
-
-"-- Line Numbers ----------------------------------------------------------
-set number
-set numberwidth=4
-
-"-- Status Line -----------------------------------------------------------
-
-"               +-> Relative file path
-"               |   +-> Help buffer flag
-"               |   | +-> Filetype
-"               |   | | +-> Readonly flag
-"               |   | | | +-> Modified flag
-"               |   | | | | +-> Left/right alignment separator
-set statusline=%f\ %h%y%r%m%=
-
-" Warn on syntax errors
-set statusline+=%#warningmsg#%{SyntasticStatuslineFlag()}%*
-
-" Warn if fileformat isn't Unix
-set statusline+=%#warningmsg#%{&ff!='unix'?'['.&ff.']':''}%*
-
-" Warn if file encoding isn't UTF-8
-set statusline+=%#warningmsg#%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}%*
-
-" Warn if expandtab is wrong or there is mixed indenting
-set statusline+=%#warningmsg#%{StatuslineTabWarning()}%*
-set statusline+=%#warningmsg#%{StatuslineTrailingSpaceWarning()}%*
-
-" Warn if paste is enabled
-set statusline+=%#warningmsg#%{&paste?'[paste]':''}%*
-
-"                  +-> Column number
-"                  |  +-> Line number
-"                  |  |   +-> Percentage through file
-set statusline+=\ %c,%l\ %P
-
-"}}}
 "==========================================================================
 " Plugin Options                                                        {{{
 "==========================================================================
@@ -173,22 +79,15 @@ let g:syntastic_enable_signs=0
 let g:syntastic_auto_jump=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_stl_format='[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
+let g:syntastic_enable_perl_checker = 1
+let g:syntastic_quiet_messages = { "type": "style" }
+let g:syntastic_quiet_messages = { "type": "tidy" }
 
-"}}}
-"==========================================================================
-" Key Mapping                                                           {{{
-"==========================================================================
-
-"-- Leader Key ------------------------------------------------------------
-" I don't actually use <leader> in my mappings, but I thought it'd be a
-" good idea to explicitly declare it anyway.
-nnoremap \ ,
-vnoremap \ ,
-let mapleader=","
-
-"-- Misc. Non-Leader Mappings ---------------------------------------------
+"-- Key Mapping --------------------------------------------------------------
+nnoremap <C-f> :bnext<CR>	" buffer next
+nnoremap <C-b> :bprevious<CR>	" buffer prev
+nnoremap <silent> ,hl :silent nohlsearch<CR>  " Un-highlight last search
 map <Space> :
-
 " Make Y behave consistently with D and C
 map Y y$
 
@@ -205,20 +104,19 @@ map <m-l> gt
 map <m-h> gT
 
 "-- Mappings for Plugins --------------------------------------------------
+" map <F3> :executeo "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+map <F2> :Sscratch<CR>
 map <F3> :RGrep<CR>
 map <silent> <F4> :NERDTreeToggle<CR>
 map <silent> <F5> :GundoToggle<CR>
 map <silent> <F8> :TlistToggle<CR>
-map <CR> <Plug>SmartSpaceNext
-map <BS> <Plug>SmartSpacePrev
-
 map <silent> <F6> :cnext<CR>
 map <silent> <F7> :cprev<CR>
 map <silent> <F12> :cclose<CR>
 
 " Emacs style movement on command line. <C-n> and <C-p> wipe out my command
-" line cycling for things like the wildmenu, but it's well worth it
-" (especially since I primarily use FuzzyFinder).
+" " line cycling for things like the wildmenu, but it's well worth it
+" " (especially since I primarily use FuzzyFinder).
 cmap <c-b> <Left>
 cmap <c-f> <Right>
 cmap <c-p> <Up>
@@ -228,16 +126,6 @@ cmap <m-f> <S-Right>
 cmap <c-a> <Home>
 cmap <c-e> <End>
 
-"-- Misc. Leader Mappings -------------------------------------------------
-nmap <silent> ,v :ed $MYVIMRC<CR>
-nmap <silent> ,V :so $MYVIMRC<CR>
-
-nnoremap <silent> ,cd :lcd %:h<CR>
-nnoremap <silent> ,md :!mkdir -p %:p:h<CR>
-
-" Un-highlight last search
-nnoremap <silent> ,hl :silent nohlsearch<CR>
-
 "-- FuzzyFinder -----------------------------------------------------------
 nnoremap <silent> ,fb :FufBuffer<CR>
 nnoremap <silent> ,fc :FufCoverageFile<CR>
@@ -246,12 +134,15 @@ nnoremap <silent> ,fh :FufHelp<CR>
 nnoremap <silent> ,ft :FufTag<CR>
 nnoremap <silent> ,fd :FufDir<CR>
 nnoremap <silent> ,fr :FufRenewCache<CR>
+
 "-- Fugitive   (Git) --------------------------------------------------------
 nnoremap <silent> ,gb :Gblame<CR>
 nnoremap <silent> ,gc :Gcommit<CR>
 nnoremap <silent> ,gd :Gdiff<CR>
 nnoremap <silent> ,gl :Glog<CR>
 nnoremap <silent> ,gs :Gstatus<CR>
+nnoremap <silent> ,ga :Gadd<CR>
+nnoremap <silent> ,gg :Gstatus <C-R><C-W><CR>
 
 "}}}
 "==========================================================================
@@ -276,9 +167,8 @@ augroup Miscellaneous
   autocmd FileType * autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
   " Cucumber (The ft detection in the plugin doesn't seem to work for me)
   autocmd BufNewFile,BufReadPost *.feature,*.story setfiletype cucumber
-  " Change PHP indenting (I just can't get used to two spaces with all of
-  " those brackets).
-  autocmd Filetype php setlocal sts=4 sw=4
+  " Change Ruby indenting
+  autocmd Filetype rb setlocal sts=2 sw=2
   " Restore cursor to last known position when opening a previously edited
   " file.
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -319,25 +209,3 @@ function! StatuslineTabWarning()
 
   return b:statusline_tab_warning
 endfunction
-
-"}}}
-"==========================================================================
-" Acknowledgements                                                      {{{
-"==========================================================================
-"
-" Derek Wyatt for Vim and .vimrc tips
-" - http://derekwyatt.org/vim/the-vimrc-file/my-vimrc-file
-"
-" Scrooloose for status line stuff
-" - http://github.com/scrooloose/vimfiles/blob/3cc6832ef77515f76d8d/vimrc
-"
-" Column-comment style and various settings
-" - http://vi-improved.org/vimrc.php
-"
-" Takeshi Nishida (FuzzyFinder) for section folding inspi.vimrc
-" - http://www.vim.org/scripts/script.php?script_id=1984
-"
-"}}}
-"==========================================================================
-" Scared by folding? Use 'zR' to open everything up.
-" vim:et:sts=2:sw=2:tw=78:fdm=marker:
