@@ -25,7 +25,8 @@ git_bundles = [
   "git://github.com/vim-scripts/L9.git",
   "git://github.com/vim-scripts/molokai.git",
   "git://github.com/rosenfeld/rgrep.vim.git",
-  "git://github.com/terryma/vim-multiple-cursors.git"
+  "git://github.com/terryma/vim-multiple-cursors.git",
+  "git://github.com/kana/vim-scratch.git"
 ]
 
 vim_org_scripts = [

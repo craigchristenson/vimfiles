@@ -104,8 +104,7 @@ map <m-l> gt
 map <m-h> gT
 
 "-- Mappings for Plugins --------------------------------------------------
-" map <F3> :executeo "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
-map <F2> :Sscratch<CR>
+map <F2> :ScratchOpen<CR>
 map <F3> :RGrep<CR>
 map <silent> <F4> :NERDTreeToggle<CR>
 map <silent> <F5> :GundoToggle<CR>
